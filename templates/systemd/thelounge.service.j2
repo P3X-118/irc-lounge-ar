@@ -34,6 +34,9 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       {% if thelounge_container_http_host_bind_port %}
       -p {{ thelounge_container_http_host_bind_port }}:{{ thelounge_container_http_port }} \
       {% endif %}
+      {% if thelounge_container_identd_host_bind_port %}
+      -p {{ thelounge_container_identd_host_bind_port }}:{{ thelounge_container_identd_port }} \
+      {% endif %}
       --env-file={{ thelounge_base_path }}/env \
       --label-file={{ thelounge_base_path }}/labels \
       {% if thelounge_container_additional_volumes | length == 0 %}

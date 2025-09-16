@@ -26,6 +26,14 @@ See the project's [documentation](https://thelounge.chat/docs) to learn what The
 
 ## Prerequisites
 
+### Open ports
+
+You may need to open the following port on your server:
+
+- `113` — port number for `identd`
+
+Docker automatically opens these ports in the server's firewall, so you likely don't need to do anything. If you use another firewall in front of the server, you may need to adjust it.
+
 ## Adjusting the playbook configuration
 
 To enable The Lounge with this role, add the following configuration to your `vars.yml` file.
@@ -93,7 +101,7 @@ Take a look at:
 
 - [`defaults/main.yml`](../defaults/main.yml) for some variables that you can customize via your `vars.yml` file. See [`templates/config.js.j2`](../templates/config.js.j2) for details.
 
-The service also supports [WebIRC](https://thelounge.chat/docs/configuration#webirc-support), [LDAP](https://thelounge.chat/docs/configuration#ldap-support), etc. Open the links for detailed descriptions about each function.
+The service also supports [identd and oidentd](https://thelounge.chat/docs/configuration#identd-and-oidentd-support), [WebIRC](https://thelounge.chat/docs/configuration#webirc-support), [LDAP](https://thelounge.chat/docs/configuration#ldap-support), etc. Open the links for detailed descriptions about each function.
 
 Note the role is configured to set up the instance in **private mode**. You can have it set up the instance in **public mode** by setting `thelounge_config_public` to `true`. See [this page](https://thelounge.chat/docs) for difference between those modes.
 

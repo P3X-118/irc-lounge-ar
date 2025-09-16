@@ -52,11 +52,19 @@ thelounge_container_image_self_build_src_files_path: "{{ thelounge_base_path }}/
 # Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
 thelounge_container_http_host_bind_port: ""
 
+# Controls whether the container exposes its HTTP port (tcp/113 in the container).
+#
+# Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
+thelounge_container_identd_host_bind_port: ""
+
 # The base container network. It will be auto-created by this role if it doesn't exist already.
 thelounge_container_network: "{{ thelounge_identifier }}"
 
 # The port number in the container
 thelounge_container_http_port: 9000
+
+# The port number in the container
+thelounge_container_identd_port: 9001
 
 # A list of additional container networks that the container would be connected to.
 # The role does not create these networks, so make sure they already exist.
@@ -237,7 +245,7 @@ thelounge_config_webirc: "null"
 thelounge_config_identd: |
   {
     enable: false,
-    port: 113,
+    port: {{ thelounge_container_identd_host_bind_port }},
   }
 thelounge_config_oidentd: "null"
 thelounge_config_ldap__enable: false
