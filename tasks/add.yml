@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2023 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2025 Suguru Hirahara
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+---
+# The command to create a user: `ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE password=PASSWORD_HERE`
+
+- name: Fail if playbook called incorrectly
+  ansible.builtin.fail:
+    msg: "The `username` and `password` variables need to be provided via --extra-vars"
+  when: "username is not defined or password is not defined"
+
+# See: https://github.com/thelounge/thelounge-docker/blob/master/README.md#adding-users
+- name: Run The Lounge 'add' command
+  ansible.builtin.command:
+    cmd: |-
+      {{ devture_systemd_docker_base_host_command_docker }} exec
+      {{ thelounge_identifier }}
+      thelounge
+      add {{ username }} --password {{ password }}
+  register: result
+  changed_when: "'created' in result.stdout"
+  failed_when: false
+  no_log: true # hide raw password
+
+- name: Display The Lounge 'add' command result
+  ansible.builtin.debug:
+    msg: "The Lounge 'add' command result: {{ result.stdout if result.stdout else result.stderr }}"

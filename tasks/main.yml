@@ -17,6 +17,14 @@
     - name: Install The Lounge
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
 
+- name: Perform The Lounge user creation tasks
+  when: thelounge_enabled | bool
+  tags:
+    - add-thelounge
+  block:
+    - name: Run The Lounge 'add' command
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/add.yml"
+
 - name: Perform The Lounge uninstallation tasks
   when: not thelounge_enabled | bool
   tags:
