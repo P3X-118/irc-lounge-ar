@@ -29,6 +29,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       --log-driver=none \
       --user={{ thelounge_uid }}:{{ thelounge_gid }} \
       --cap-drop=ALL \
+      --read-only \
       --network={{ thelounge_container_network }} \
       {% if thelounge_container_http_host_bind_port %}
       -p {{ thelounge_container_http_host_bind_port }}:{{ thelounge_container_http_port }} \
@@ -36,7 +37,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       --env-file={{ thelounge_base_path }}/env \
       --label-file={{ thelounge_base_path }}/labels \
       {% if thelounge_container_additional_volumes | length == 0 %}
-      --mount type=bind,src={{ thelounge_data_path }},dst=/app/data/storage \
+      --mount type=bind,src={{ thelounge_data_path }},dst=/var/opt/thelounge \
       {% endif %}
       {% for volume in thelounge_container_additional_volumes %}
       --mount type={{ volume.type | default('bind' if '/' in volume.src else 'volume') }},src={{ volume.src }},dst={{ volume.dst }}{{ (',' + volume.options) if volume.options else '' }} \
