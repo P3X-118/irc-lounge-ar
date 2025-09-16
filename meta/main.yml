@@ -4,7 +4,7 @@ galaxy_info:
   company: progressiv
   role_name: docmost
   namespace: progressiv
-  description: Docmost
+  description: The Lounge
   platforms:
     - name: Debian
       versions:

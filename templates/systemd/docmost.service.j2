@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 #}
 
 [Unit]
-Description=Docmost ({{ docmost_identifier }})
+Description=The Lounge ({{ docmost_identifier }})
 {% for service in docmost_systemd_required_services_list %}
 Requires={{ service }}
 After={{ service }}

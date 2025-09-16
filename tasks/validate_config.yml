@@ -16,7 +16,7 @@
     - { "old": "docmost_redis_host", "new": "docmost_redis_hostname" }
     - { "old": "docmost_http_header_content_permission_policy", "new": "docmost_http_header_permissions_policy" }
 
-- name: Fail if required Docmost settings not defined
+- name: Fail if required The Lounge settings not defined
   ansible.builtin.fail:
     msg: >-
       You need to define a required configuration setting (`{{ item }}`).
@@ -31,13 +31,13 @@
     - docmost_database_password
     - docmost_environment_variable_redis_url
 
-- name: Fail if Docmost storage drver option is invalid
+- name: Fail if The Lounge storage drver option is invalid
   ansible.builtin.fail:
     msg: >-
       docmost_environment_variable_storage_driver must be 'local' or 's3'
   when: "docmost_environment_variable_storage_driver not in ['local', 's3']"
 
-- name: Fail if Docmost mail driver option is invalid
+- name: Fail if The Lounge mail driver option is invalid
   ansible.builtin.fail:
     msg: >-
       docmost_environment_variable_mail_driver must be 'smtp' or 'postmark'
@@ -62,7 +62,7 @@
 - name: Run if Traefik is enabled
   when: docmost_container_labels_traefik_enabled | bool
   block:
-    - name: Fail if Traefik settings required for Docmost are not defined
+    - name: Fail if Traefik settings required for The Lounge are not defined
       ansible.builtin.fail:
         msg: >-
           You need to define a required configuration setting (`{{ item }}`).
@@ -75,7 +75,7 @@
       ansible.builtin.fail:
         msg: >-
           docmost_container_labels_traefik_path_prefix (`{{ docmost_container_labels_traefik_path_prefix }}`) must be `/`.
-          Docmost does not support hosting under a subpath yet.
+          The Lounge does not support hosting under a subpath yet.
       when: "docmost_container_labels_traefik_path_prefix != '/'"
 
     # We ensure it doesn't end with a slash, because we handle both (slash and no-slash).

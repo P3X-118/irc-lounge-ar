@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-- name: Perform Docmost installation tasks
+- name: Perform The Lounge installation tasks
   when: docmost_enabled | bool
   tags:
     - setup-all
@@ -12,16 +12,16 @@
     - install-all
     - install-docmost
   block:
-    - name: Validate Docmost configuration
+    - name: Validate The Lounge configuration
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
-    - name: Install Docmost
+    - name: Install The Lounge
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
 
-- name: Perform Docmost uninstallation tasks
+- name: Perform The Lounge uninstallation tasks
   when: not docmost_enabled | bool
   tags:
     - setup-all
     - setup-docmost
   block:
-    - name: Uninstall Docmost
+    - name: Uninstall The Lounge
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/uninstall.yml"
