@@ -6,27 +6,27 @@
 ---
 - name: Check existence of The Lounge systemd service
   ansible.builtin.stat:
-    path: "{{ devture_systemd_docker_base_systemd_path }}/{{ docmost_identifier }}.service"
-  register: docmost_service_stat
+    path: "{{ devture_systemd_docker_base_systemd_path }}/{{ thelounge_identifier }}.service"
+  register: thelounge_service_stat
 
 - name: Uninstall The Lounge systemd services and files
-  when: docmost_service_stat.stat.exists | bool
+  when: thelounge_service_stat.stat.exists | bool
   block:
     - name: Ensure The Lounge systemd service is stopped
       ansible.builtin.service:
-        name: "{{ docmost_identifier }}"
+        name: "{{ thelounge_identifier }}"
         state: stopped
         enabled: false
         daemon_reload: true
 
     - name: Ensure The Lounge systemd service does not exist
       ansible.builtin.file:
-        path: "{{ devture_systemd_docker_base_systemd_path }}/{{ docmost_identifier }}.service"
+        path: "{{ devture_systemd_docker_base_systemd_path }}/{{ thelounge_identifier }}.service"
         state: absent
 
     - name: Ensure The Lounge support files do not exist
       ansible.builtin.file:
-        path: "{{ docmost_base_path }}/{{ item }}"
+        path: "{{ thelounge_base_path }}/{{ item }}"
         state: absent
       with_items:
         - env
@@ -34,27 +34,27 @@
 
     - name: Ensure The Lounge image source files path does not exist
       ansible.builtin.file:
-        path: "{{ docmost_container_image_self_build_src_files_path }}"
+        path: "{{ thelounge_container_image_self_build_src_files_path }}"
         state: absent
 
     - name: Ensure The Lounge local data path does not exist if empty
       ansible.builtin.command:
-        cmd: "rmdir {{ docmost_data_path }}"
-      register: docmost_data_path_deletion_result
-      changed_when: docmost_data_path_deletion_result.rc == 0
+        cmd: "rmdir {{ thelounge_data_path }}"
+      register: thelounge_data_path_deletion_result
+      changed_when: thelounge_data_path_deletion_result.rc == 0
       failed_when: false
 
     - name: Ensure The Lounge base path does not exist if empty
       ansible.builtin.command:
-        cmd: "rmdir {{ docmost_base_path }}"
-      register: docmost_base_path_deletion_result
-      changed_when: docmost_base_path_deletion_result.rc == 0
+        cmd: "rmdir {{ thelounge_base_path }}"
+      register: thelounge_base_path_deletion_result
+      changed_when: thelounge_base_path_deletion_result.rc == 0
       failed_when: false
 
     - name: Ensure The Lounge container network does not exist via community.docker.docker_network
       when: devture_systemd_docker_base_container_network_creation_method == 'ansible-module'
       community.docker.docker_network:
-        name: "{{ docmost_container_network }}"
+        name: "{{ thelounge_container_network }}"
         state: absent
 
     - name: Ensure The Lounge container network does not exist via ansible.builtin.command
@@ -62,24 +62,24 @@
       ansible.builtin.command:
         cmd: >-
           {{ devture_systemd_docker_base_host_command_docker }} network rm
-          {{ docmost_container_network }}
+          {{ thelounge_container_network }}
       register: network_deletion_result
-      changed_when: docmost_container_network in network_deletion_result.stdout
+      changed_when: thelounge_container_network in network_deletion_result.stdout
 
 - name: Check existence of The Lounge local data path
   ansible.builtin.stat:
-    path: "{{ docmost_data_path }}"
-  register: docmost_data_path_stat
+    path: "{{ thelounge_data_path }}"
+  register: thelounge_data_path_stat
 
 # We just want to notify the user. Deleting data is too destructive.
 - name: Notify if The Lounge local data remains
-  when: docmost_data_path_stat.stat.exists | bool
+  when: thelounge_data_path_stat.stat.exists | bool
   ansible.builtin.set_fact:
     devture_playbook_runtime_messages_list: |
       {{
         devture_playbook_runtime_messages_list | default([])
         +
         [
-          "Note: As the local The Lounge instance has been removed, some old data remains in `" + docmost_data_path + "`. Feel free to delete it."
+          "Note: As the local The Lounge instance has been removed, some old data remains in `" + thelounge_data_path + "`. Feel free to delete it."
         ]
       }}
