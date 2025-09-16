@@ -60,7 +60,6 @@
         version: "{{ thelounge_container_image_self_build_repo_version }}"
         dest: "{{ thelounge_container_image_self_build_src_files_path }}"
         force: "yes"
-        recursive: false # do not init/update any submodules including `apps/server/src/ee`
       register: thelounge_git_pull_results
 
     - name: Ensure The Lounge container image is built

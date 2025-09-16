@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-# Project source code URL: https://github.com/thelounge/thelounge
+# Project source code URL: https://github.com/thelounge/thelounge-docker
 
 thelounge_enabled: true
 
@@ -16,7 +16,7 @@ thelounge_base_path: "/{{ thelounge_identifier }}"
 thelounge_data_path: "{{ thelounge_base_path }}/data"
 
 # renovate: datasource=docker depName=thelounge/thelounge versioning=semver
-thelounge_version: 0.23.1
+thelounge_version: 4.4.3
 
 thelounge_uid: ""
 thelounge_gid: ""
@@ -42,9 +42,9 @@ thelounge_container_image_registry_prefix_upstream_default: docker.io/
 thelounge_container_image_force_pull: "{{ thelounge_container_image.endswith(':latest') }}"
 
 thelounge_container_image_self_build: false
-thelounge_container_image_self_build_name: "thelounge/thelounge:{{ thelounge_container_image_self_build_repo_version }}"
-thelounge_container_image_self_build_repo: "https://github.com/thelounge/thelounge.git"
-thelounge_container_image_self_build_repo_version: "{{ 'v' + thelounge_version if thelounge_version != 'latest' else 'main' }}"
+thelounge_container_image_self_build_name: "thelounge/thelounge-docker:{{ thelounge_container_image_self_build_repo_version }}"
+thelounge_container_image_self_build_repo: "https://github.com/thelounge/thelounge-docker.git"
+thelounge_container_image_self_build_repo_version: "{{ thelounge_version if thelounge_version != 'latest' else 'main' }}"
 thelounge_container_image_self_build_src_files_path: "{{ thelounge_base_path }}/docker-src"
 
 # Controls whether the container exposes its HTTP port (tcp/80 in the container).
