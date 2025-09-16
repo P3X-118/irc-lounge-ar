@@ -56,7 +56,7 @@ thelounge_container_http_host_bind_port: ""
 thelounge_container_network: "{{ thelounge_identifier }}"
 
 # The port number in the container
-thelounge_container_http_port: 3000
+thelounge_container_http_port: 9000
 
 # A list of additional container networks that the container would be connected to.
 # The role does not create these networks, so make sure they already exist.
