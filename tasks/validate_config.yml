@@ -5,17 +5,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-- name: (Deprecation) Catch and report renamed settings
-  ansible.builtin.fail:
-    msg: >-
-      Your configuration contains a variable, which now has a different name.
-      Please change your configuration to rename the variable (`{{ item.old }}` -> `{{ item.new }}`).
-  when: "lookup('ansible.builtin.varnames', ('^' + item.old + '$'), wantlist=True) | length > 0"
-  with_items:
-    - { "old": "thelounge_environment_variable_port", "new": "thelounge_container_http_port" }
-    - { "old": "thelounge_redis_host", "new": "thelounge_redis_hostname" }
-    - { "old": "thelounge_http_header_content_permission_policy", "new": "thelounge_http_header_permissions_policy" }
-
 - name: Fail if required The Lounge settings not defined
   ansible.builtin.fail:
     msg: >-
