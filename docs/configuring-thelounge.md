@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2020 - 2024 MDAD project contributors
-SPDX-FileCopyrightText: 2020 - 2024 Slavi Pantaleev
+SPDX-FileCopyrightText: 2020 - 2025 Slavi Pantaleev
 SPDX-FileCopyrightText: 2020 Aaron Raimist
 SPDX-FileCopyrightText: 2020 Chris van Dijk
 SPDX-FileCopyrightText: 2020 Dominik Zajac
@@ -8,10 +8,13 @@ SPDX-FileCopyrightText: 2020 Mickaël Cornière
 SPDX-FileCopyrightText: 2022 François Darveau
 SPDX-FileCopyrightText: 2022 Julian Foad
 SPDX-FileCopyrightText: 2022 Warren Bailey
+SPDX-FileCopyrightText: 2023 - 2024 MASH project contributors
 SPDX-FileCopyrightText: 2023 Antonis Christofides
 SPDX-FileCopyrightText: 2023 Felix Stupp
+SPDX-FileCopyrightText: 2023 Gergely Horváth
 SPDX-FileCopyrightText: 2023 Pierre 'McFly' Marty
 SPDX-FileCopyrightText: 2024 - 2025 Suguru Hirahara
+SPDX-FileCopyrightText: 2024 Philipp Homann
 
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
@@ -146,3 +149,15 @@ ansible-playbook -i inventory/hosts setup.yml --tags=command-thelounge -e comman
 ### Check the service's logs
 
 You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu thelounge` (or how you/your playbook named the service, e.g. `mash-thelounge`).
+
+### Enable debug mode
+
+You can enable debugging mode for The Lounge by adding the following configuration to your `vars.yml` file:
+
+```yaml
+thelounge_config_debug__irc_framework: true
+
+thelounge_config_debug__raw: true
+```
+
+See [`templates/config.js.j2`](../templates/config.js.j2) for details about how they work.
