@@ -26,6 +26,14 @@
     - env
     - labels
 
+- name: Ensure The Lounge config file installed
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config.js.j2"
+    dest: "{{ thelounge_data_path }}/config.js"
+    mode: "0640"
+    owner: "{{ thelounge_uid }}"
+    group: "{{ thelounge_gid }}"
+
 - name: Run if self-building of The Lounge container image is not enabled
   when: "not thelounge_container_image_self_build | bool"
   block:

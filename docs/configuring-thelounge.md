@@ -60,13 +60,42 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 **Note**: hosting The Lounge under a subpath (by configuring the `thelounge_path_prefix` variable) does not seem to be possible due to The Lounge's technical limitations.
 
+### Allowing file uploads
+
+You can allow uploading files to the server hosting The Lounge by adding the following configuration to your `vars.yml` file. See [this section](https://thelounge.chat/docs/configuration#fileupload) on the documentation about how to configure the function.
+
+```yaml
+thelounge_config_file_upload: |
+  {
+    enable: true,
+    maxFileSize: 10240,
+    baseUrl: null,
+  }
+```
+
+### Enabling link previews
+
+To have the instance load thumbnails and website's descriptions from posted URLs, add the following configuration to your `vars.yml` file:
+
+```yaml
+thelounge_config_prefetch: true
+```
+
+### Changing the default network
+
+The default network (used as placeholder values in the `Connect` window) is set to [`libera.chat`](https://libera.chat). You can change it by editing the values of `thelounge_config_defaults`. See [this section](https://thelounge.chat/docs/configuration#default-network) on the documentation about how to do so.
+
 ### Extending the configuration
 
 There are some additional things you may wish to configure about the component.
 
 Take a look at:
 
-- [`defaults/main.yml`](../defaults/main.yml) for some variables that you can customize via your `vars.yml` file. You can override settings (even those that don't have dedicated playbook variables) using the `thelounge_environment_variables_additional_variables` variable
+- [`defaults/main.yml`](../defaults/main.yml) for some variables that you can customize via your `vars.yml` file. See [`templates/config.js.j2`](../templates/config.js.j2) for details.
+
+The service also supports [WebIRC](https://thelounge.chat/docs/configuration#webirc-support), [LDAP](https://thelounge.chat/docs/configuration#ldap-support), etc. Open the links for detailed descriptions about each function.
+
+Note the role is configured to set up the instance in **private mode**. You can have it set up the instance in **public mode** by setting `thelounge_config_public` to `true`. See [this page](https://thelounge.chat/docs) for difference between those modes.
 
 ## Installing
 

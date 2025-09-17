@@ -1,11 +1,13 @@
 {#
 SPDX-FileCopyrightText: 2014 - 2023 The Lounge project contributors
+SPDX-FileCopyrightText: 2025 Suguru Hirahara
 
 SPDX-License-Identifier: MIT
 #}
 
 {#
-  See: https://github.com/thelounge/thelounge/blob/master/defaults/config.js
+  The latest file is available at https://github.com/thelounge/thelounge/blob/master/defaults/config.js
+  Also see: https://thelounge.chat/docs/configuration
 #}
 
 "use strict";
@@ -26,7 +28,7 @@ module.exports = {
 	//   channels and scrollbacks are available when they come back.
 	//
 	// This value is set to `false` by default.
-	public: false,
+	public: {{ thelounge_config_public | to_json }},
 
 	// ### `host`
 	//
@@ -36,14 +38,14 @@ module.exports = {
 	// For UNIX domain sockets, use `"unix:/absolute/path/to/file.sock"`.
 	//
 	// This value is set to `undefined` by default to listen on all interfaces.
-	host: undefined,
+	host: {{ thelounge_config_host }},
 
 	// ### `port`
 	//
 	// Set the port to listen to.
 	//
 	// This value is set to `9000` by default.
-	port: 9000,
+	port: {{ thelounge_container_http_port }},
 
 	// ### `bind`
 	//
@@ -51,7 +53,7 @@ module.exports = {
 	//
 	// This value is set to `undefined` by default to let the operating system
 	// pick its preferred one.
-	bind: undefined,
+	bind: {{ thelounge_config_bind }},
 
 	// ### `reverseProxy`
 	//
@@ -59,7 +61,7 @@ module.exports = {
 	// and will honor the `X-Forwarded-For` header.
 	//
 	// This value is set to `false` by default.
-	reverseProxy: false,
+	reverseProxy: {{ thelounge_config_reverse_proxy | to_json }},
 
 	// ### `maxHistory`
 	//
@@ -68,7 +70,7 @@ module.exports = {
 	// this to `-1` will keep unlimited amount.
 	//
 	// This value is set to `10000` by default.
-	maxHistory: 10000,
+	maxHistory: {{ thelounge_config_max_history }},
 
 	// ### `https`
 	//
@@ -87,12 +89,7 @@ module.exports = {
 	//
 	// The value of `enable` is set to `false` to disable HTTPS by default, in
 	// which case the other two string settings are ignored.
-	https: {
-		enable: false,
-		key: "",
-		certificate: "",
-		ca: "",
-	},
+	https: {{ thelounge_config_https }},
 
 	// ## Client settings
 
@@ -110,7 +107,7 @@ module.exports = {
 	// Solarized would be `thelounge-theme-solarized`.
 	//
 	// This value is set to `"default"` by default.
-	theme: "default",
+	theme: "{{ thelounge_config_theme }}",
 
 	// ### `prefetch`
 	//
@@ -118,7 +115,7 @@ module.exports = {
 	// from URLs posted in channels and private messages.
 	//
 	// This value is set to `false` by default.
-	prefetch: false,
+	prefetch: {{ thelounge_config_prefetch | to_json }},
 
 	// ### `disableMediaPreview`
 	//
@@ -130,7 +127,7 @@ module.exports = {
 	// This has no effect if `prefetch` is set to `false`.
 	//
 	// This value is set to `false` by default.
-	disableMediaPreview: false,
+	disableMediaPreview: {{ thelounge_config_disable_media_preview | to_json }},
 
 	// ### `prefetchStorage`
 
@@ -150,7 +147,7 @@ module.exports = {
 	// restarts.
 	//
 	// This value is set to `false` by default.
-	prefetchStorage: false,
+	prefetchStorage: {{ thelounge_config_prefetch_storage | to_json }},
 
 	// ### `prefetchMaxImageSize`
 	//
@@ -158,7 +155,7 @@ module.exports = {
 	// size does not exceed this limit.
 	//
 	// This value is set to `2048` kilobytes by default.
-	prefetchMaxImageSize: 2048,
+	prefetchMaxImageSize: {{ thelounge_config_prefetch_max_image_size }},
 
 	// ### prefetchMaxSearchSize
 	//
@@ -168,7 +165,7 @@ module.exports = {
 	// kilobytes.
 	//
 	// This value is set to `50` kilobytes by default.
-	prefetchMaxSearchSize: 50,
+	prefetchMaxSearchSize: {{ thelounge_config_prefetch_max_search_size }},
 
 	// ### `prefetchTimeout`
 	//
@@ -182,7 +179,7 @@ module.exports = {
 	// value is appropriate, so only change it if necessary.
 	//
 	// This value is set to `5000` milliseconds by default.
-	prefetchTimeout: 5000,
+	prefetchTimeout: {{ thelounge_config_prefetch_timeout }},
 
 	// ### `fileUpload`
 	//
@@ -206,18 +203,14 @@ module.exports = {
 	//   If you use this option, you must have a reverse proxy configured,
 	//   to correctly proxy the uploads URLs back to The Lounge.
 	//   This value is set to `null` by default.
-	fileUpload: {
-		enable: false,
-		maxFileSize: 10240,
-		baseUrl: null,
-	},
+	fileUpload: {{ thelounge_config_file_upload }},
 
 	// ### `transports`
 	//
 	// Set `socket.io` transports.
 	//
 	// This value is set to `["polling", "websocket"]` by default.
-	transports: ["polling", "websocket"],
+	transports: {{ thelounge_config_transports }},
 
 	// ### `leaveMessage`
 	//
@@ -226,7 +219,7 @@ module.exports = {
 	//
 	// This value is set to `"The Lounge - https://thelounge.chat"` by
 	// default.
-	leaveMessage: "The Lounge - https://thelounge.chat",
+	leaveMessage: "{{ thelounge_config_leave_message }}",
 
 	// ## Default network
 
@@ -272,19 +265,7 @@ module.exports = {
 	//   join: "#thelounge"
 	// }
 	// ```
-	defaults: {
-		name: "Libera.Chat",
-		host: "irc.libera.chat",
-		port: 6697,
-		password: "",
-		tls: true,
-		rejectUnauthorized: true,
-		nick: "thelounge%%",
-		username: "thelounge",
-		realname: "",
-		join: "#thelounge",
-		leaveMessage: "",
-	},
+	defaults: {{ thelounge_config_defaults }},
 
 	// ### `lockNetwork`
 	//
@@ -293,7 +274,7 @@ module.exports = {
 	// These fields will also be hidden from the UI.
 	//
 	// This value is set to `false` by default.
-	lockNetwork: false,
+	lockNetwork: {{ thelounge_config_lock_network | to_json }},
 
 	// ## User management
 
@@ -312,7 +293,7 @@ module.exports = {
 	// their JSON configuration file.
 	//
 	// This value is set to `["sqlite", "text"]` by default.
-	messageStorage: ["sqlite", "text"],
+	messageStorage: {{ thelounge_config_message_storage }},
 
 	// ### `storagePolicy`
 
@@ -328,11 +309,7 @@ module.exports = {
 	//   - `statusOnly`: Only delete message types which are status related (e.g. away, back, join, parts, mode, ctcp...)
 	//     but keep actual messages from nicks. This keeps the DB size down while retaining "precious" messages.
 	//   - `everything`: Delete everything, including messages from irc nicks
-	storagePolicy: {
-		enabled: false,
-		maxAgeDays: 7,
-		deletionPolicy: "statusOnly",
-	},
+	storagePolicy: {{ thelounge_config_storage_policy }},
 
 	// ### `useHexIp`
 	//
@@ -343,7 +320,7 @@ module.exports = {
 	// IPv4.
 	//
 	// This value is set to `false` by default.
-	useHexIp: false,
+	useHexIp: {{ thelounge_config_use_hex_ip | to_json }},
 
 	// ## WEBIRC support
 	//
@@ -380,7 +357,7 @@ module.exports = {
 	//   ```
 	//
 	// This value is set to `null` to disable WEBIRC by default.
-	webirc: null,
+	webirc: {{ thelounge_config_webirc }},
 
 	// ## identd and oidentd support
 
@@ -396,10 +373,7 @@ module.exports = {
 	// The value of `enable` is set to `false` to disable `identd` support by
 	// default, in which case the value of `port` is ignored. The default value of
 	// `port` is 113.
-	identd: {
-		enable: false,
-		port: 113,
-	},
+	identd: {{ thelounge_config_identd }},
 
 	// ### `oidentd`
 	//
@@ -407,7 +381,7 @@ module.exports = {
 	// configuration file located at the given path.
 	//
 	// This is set to `null` by default to disable `oidentd` support.
-	oidentd: null,
+	oidentd: {{ thelounge_config_oidentd }},
 
 	// ## LDAP support
 
@@ -447,11 +421,11 @@ module.exports = {
 	ldap: {
 		// - `enable`: when set to `false`, LDAP support is disabled and all other
 		//   values are ignored.
-		enable: false,
+		enable: {{ thelounge_config_ldap__enable | to_json }},
 
 		// - `url`: A url of the form `ldaps://<ip>:<port>`.
 		//   For plain connections, use the `ldap` scheme.
-		url: "ldaps://example.com",
+		url: "{{ thelounge_config_ldap__url }}",
 
 		// - `tlsOptions`: LDAP connection TLS options (only used if scheme is
 		//   `ldaps://`). It is an object whose values are Node.js' `tls.connect()`
@@ -463,10 +437,10 @@ module.exports = {
 		//     servername: 'example.com'
 		//   }
 		//   ```
-		tlsOptions: {},
+		tlsOptions: {{ thelounge_config_ldap__tls_options }},
 
 		// - `primaryKey`: LDAP primary key. It is set to `"uid"` by default.
-		primaryKey: "uid",
+		primaryKey: "{{ thelounge_config_ldap__primary_key }}",
 
 		// - `baseDN`: LDAP base DN, alternative to `searchDN`. For example, set it
 		//   to `"ou=accounts,dc=example,dc=com"`.
@@ -482,21 +456,21 @@ module.exports = {
 			//     read-only to the DNs of the people that are allowed to log in.
 			//     It is set to `"cn=thelounge,ou=system-users,dc=example,dc=com"` by
 			//     default.
-			rootDN: "cn=thelounge,ou=system-users,dc=example,dc=com",
+			rootDN: "{{ thelounge_config_ldap__search_dn__root_dn }}",
 
 			//   - `rootPassword`: Password of The Lounge LDAP system user.
-			rootPassword: "1234",
+			rootPassword: "{{ thelounge_config_ldap__search_dn__root_password }}",
 
 			//   - `filter`: it is set to `"(&(objectClass=person)(memberOf=ou=accounts,dc=example,dc=com))"`
 			//     by default.
-			filter: "(&(objectClass=person)(memberOf=ou=accounts,dc=example,dc=com))",
+			filter: "{{ thelounge_config_ldap__search_dn__filter }}",
 
 			//   - `base`: LDAP search base (search only within this node). It is set
 			//     to `"dc=example,dc=com"` by default.
-			base: "dc=example,dc=com",
+			base: "{{ thelounge_config_ldap__search_dn__base }}",
 
 			//   - `scope`: LDAP search scope. It is set to `"sub"` by default.
-			scope: "sub",
+			scope: "{{ thelounge_config_ldap__search_dn__scope }}",
 		},
 	},
 
@@ -514,12 +488,12 @@ module.exports = {
 		// When set to true, this enables extra debugging output provided by
 		// [`irc-framework`](https://github.com/kiwiirc/irc-framework), the
 		// underlying IRC library for Node.js used by The Lounge.
-		ircFramework: false,
+		ircFramework: {{ thelounge_config_debug__irc_framework | to_json }},
 
 		// ### `debug.raw`
 		//
 		// When set to `true`, this enables logging of raw IRC messages into each
 		// server window, displayed on the client.
-		raw: false,
+		raw: {{ thelounge_config_debug__raw | to_json }},
 	},
 };

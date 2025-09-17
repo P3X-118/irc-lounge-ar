@@ -180,5 +180,77 @@ thelounge_systemd_wanted_services_list_default: []
 thelounge_systemd_wanted_services_list_auto: []
 thelounge_systemd_wanted_services_list_custom: []
 
+# See `templates/config.js.j2` for detailed descriptions
+# (courtesy of The Lounge's project contributors) about how to configure them.
+# Also see: https://thelounge.chat/docs/configuration
+thelounge_config_public: false
+thelounge_config_host: undefined
+thelounge_config_bind: undefined
+thelounge_config_reverse_proxy: false
+thelounge_config_max_history: 10000
+thelounge_config_https: |
+  {
+    enable: false,
+    key: "",
+    certificate: "",
+    ca: "",
+  }
+thelounge_config_theme: default
+thelounge_config_prefetch: false
+thelounge_config_disable_media_preview: false
+thelounge_config_prefetch_storage: false
+thelounge_config_prefetch_max_image_size: 2048
+thelounge_config_prefetch_max_search_size: 50
+thelounge_config_prefetch_timeout: 5000
+thelounge_config_file_upload: |
+  {
+    enable: false,
+    maxFileSize: 10240,
+    baseUrl: null,
+  }
+thelounge_config_transports: ["polling", "websocket"]
+thelounge_config_leave_message: "The Lounge - https://thelounge.chat"
+thelounge_config_defaults: |
+  {
+    name: "Libera.Chat",
+    host: "irc.libera.chat",
+    port: 6697,
+    password: "",
+    tls: true,
+    rejectUnauthorized: true,
+    nick: "thelounge%%",
+    username: "thelounge",
+    realname: "",
+    join: "#thelounge",
+    leaveMessage: "",
+  }
+thelounge_config_lock_network: false
+thelounge_config_message_storage: ["sqlite", "text"]
+thelounge_config_storage_policy: |
+  {
+    enabled: false,
+    maxAgeDays: 7,
+    deletionPolicy: "statusOnly",
+  }
+thelounge_config_use_hex_ip: false
+thelounge_config_webirc: "null"
+thelounge_config_identd: |
+  {
+    enable: false,
+    port: 113,
+  }
+thelounge_config_oidentd: "null"
+thelounge_config_ldap__enable: false
+thelounge_config_ldap__url: ldaps://example.com
+thelounge_config_ldap__tls_options: {}
+thelounge_config_ldap__primary_key: uid
+thelounge_config_ldap__search_dn__root_dn: cn=thelounge,ou=system-users,dc=example,dc=com
+thelounge_config_ldap__search_dn__root_password: 1234
+thelounge_config_ldap__search_dn__filter: (&(objectClass=person)(memberOf=ou=accounts,dc=example,dc=com))
+thelounge_config_ldap__search_dn__base: dc=example,dc=com
+thelounge_config_ldap__search_dn__scope: sub
+thelounge_config_debug__irc_framework: false
+thelounge_config_debug__raw: false
+
 # Additional environment variables.
 thelounge_environment_variables_additional_variables: ""
