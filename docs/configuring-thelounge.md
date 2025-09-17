@@ -90,6 +90,20 @@ ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=U
 
 After the user is configured, it will be possible to log in to the instance.
 
+### Executing commands in the container
+
+You can run commands for administration directly with `docker exec`:
+
+```sh
+docker exec -it YOUR_CONTAINER_FOR_THELOUNGE_HERE thelounge COMMAND_HERE
+```
+
+It is also possible to run them with the playbook with the command below:
+
+```sh
+ansible-playbook -i inventory/hosts setup.yml --tags=command-thelounge -e command=COMMAND_HERE
+```
+
 ## Troubleshooting
 
 ### Check the service's logs

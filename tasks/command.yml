@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2023 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2025 Suguru Hirahara
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+---
+# The command to run the thelounge command: `ansible-playbook -i inventory/hosts setup.yml --tags=command-thelounge -e command=COMMAND_HERE`
+
+- name: Fail if playbook called incorrectly
+  ansible.builtin.fail:
+    msg: "The `command` variable needs to be provided via --extra-vars"
+  when: "command is not defined"
+
+# See: https://github.com/thelounge/thelounge-docker/blob/master/README.md#executing-commands-in-the-container
+- name: Run The Lounge command
+  ansible.builtin.command:
+    cmd: |-
+      {{ devture_systemd_docker_base_host_command_docker }} exec
+      {{ thelounge_identifier }}
+      thelounge
+      {{ command }}
+  register: result
+  changed_when: result.rc == 0
+  failed_when: false
+  no_log: true
+
+- name: Display The Lounge command result
+  ansible.builtin.debug:
+    msg: "The Lounge command result: {{ result.stdout if result.stdout else result.stderr }}"
