@@ -18,17 +18,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Setting up The Lounge
 
-This is an [Ansible](https://www.ansible.com/) role which installs [The Lounge](https://thelounge.com/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
+This is an [Ansible](https://www.ansible.com/) role which installs [The Lounge](https://thelounge.chat/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
-The Lounge is a free and open-source collaborative wiki and documentation software, designed for seamless real-time collaboration. It can be used to manage a wiki, a knowledge base, project documentation, etc. It has various functions such as granular permissions management system, page history to track changes of articles, etc. It also supports diagramming tools like Draw.io, Excalidraw and Mermaid.
+The Lounge is a modern web IRC client designed for self-hosting. It implements features such as push notification, link previews, and file uploading, and keeps a persistent connection to the IRC server while you are offline (meaning you do not need a bouncer). It is a progressiv web app (PWA), and can be accessed via a browser.
 
-See the project's [documentation](https://thelounge.com/docs/) to learn what The Lounge does and why it might be useful to you.
+See the project's [documentation](https://thelounge.chat/docs) to learn what The Lounge does and why it might be useful to you.
 
 ## Prerequisites
-
-To run a The Lounge instance it is necessary to prepare a [Postgres](https://www.postgresql.org/) database server and [Redis](https://redis.io/) server for managing a metadata database.
-
-If you are looking for Ansible roles for them, you can check out [ansible-role-postgres](https://github.com/mother-of-all-self-hosting/ansible-role-postgres) and [ansible-role-redis](https://github.com/mother-of-all-self-hosting/ansible-role-redis), both of which are maintained by the [Mother-of-All-Self-Hosting (MASH)](https://github.com/mother-of-all-self-hosting) team. The roles for [KeyDB](https://keydb.dev/) ([ansible-role-keydb](https://github.com/mother-of-all-self-hosting/ansible-role-keydb)) and [Valkey](https://valkey.io/) ([ansible-role-valkey](https://github.com/mother-of-all-self-hosting/ansible-role-valkey)) are available as well.
 
 ## Adjusting the playbook configuration
 
@@ -85,8 +81,6 @@ If you use the MASH playbook, the shortcut commands with the [`just` program](ht
 ## Usage
 
 After running the command for installation, The Lounge becomes available at the specified hostname like `https://example.com`.
-
-To get started, open the URL on a web browser and create a first workspace by inputting required information. For an email address, make sure to input your own email address, not the one specified to `thelounge_environment_variable_mail_from_address`.
 
 ## Troubleshooting
 
