@@ -132,7 +132,7 @@ After the user is configured, it will be possible to log in to the instance.
 
 ### Executing commands in the container
 
-You can run commands for administration directly with `docker exec`:
+You can run commands for managing the service directly with `docker exec`:
 
 ```sh
 docker exec -it YOUR_CONTAINER_FOR_THELOUNGE_HERE thelounge COMMAND_HERE
