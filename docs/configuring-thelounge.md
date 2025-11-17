@@ -61,7 +61,7 @@ thelounge_enabled: true
 
 ### Set the hostname
 
-To enable the The Lounge instance you need to set the hostname as well. To do so, add the following configuration to your `vars.yml` file. Make sure to replace `example.com` with your own value.
+To enable The Lounge instance you need to set the hostname as well. To do so, add the following configuration to your `vars.yml` file. Make sure to replace `example.com` with your own value.
 
 ```yaml
 thelounge_hostname: "example.com"

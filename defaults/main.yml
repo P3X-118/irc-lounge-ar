@@ -176,13 +176,13 @@ thelounge_floc_optout_enabled: true
 # See: `thelounge_http_header_strict_transport_security`
 thelounge_hsts_preload_enabled: false
 
-# List of systemd services that the The Lounge systemd service depends on
+# List of systemd services that The Lounge systemd service depends on
 thelounge_systemd_required_services_list: "{{ thelounge_systemd_required_services_list_default + thelounge_systemd_required_services_list_auto + thelounge_systemd_required_services_list_custom }}"
 thelounge_systemd_required_services_list_default: "{{ [devture_systemd_docker_base_docker_service_name] if devture_systemd_docker_base_docker_service_name else [] }}"
 thelounge_systemd_required_services_list_auto: []
 thelounge_systemd_required_services_list_custom: []
 
-# List of systemd services that the The Lounge systemd service wants
+# List of systemd services that The Lounge systemd service wants
 thelounge_systemd_wanted_services_list: "{{ thelounge_systemd_wanted_services_list_default + thelounge_systemd_wanted_services_list_auto + thelounge_systemd_wanted_services_list_custom }}"
 thelounge_systemd_wanted_services_list_default: []
 thelounge_systemd_wanted_services_list_auto: []
