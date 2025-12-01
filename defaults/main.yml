@@ -245,7 +245,7 @@ thelounge_config_webirc: "null"
 thelounge_config_identd: |
   {
     enable: false,
-    port: {{ thelounge_container_identd_host_bind_port }},
+    {% if thelounge_container_identd_host_bind_port %}port: {{ thelounge_container_identd_host_bind_port }},{% endif %}
   }
 thelounge_config_oidentd: "null"
 thelounge_config_ldap__enable: false
