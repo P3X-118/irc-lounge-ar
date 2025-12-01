@@ -125,7 +125,7 @@ After running the command for installation, The Lounge becomes available at the 
 To get started, run the command below to create a first user:
 
 ```sh
-ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE password=PASSWORD_HERE
+ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE -e password=PASSWORD_HERE
 ```
 
 After the user is configured, it will be possible to log in to the instance.
