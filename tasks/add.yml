@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-# The command to create a user: `ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE password=PASSWORD_HERE`
+# The command to create a user: `ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE -e password=PASSWORD_HERE`
 
 - name: Fail if playbook called incorrectly
   ansible.builtin.fail:
