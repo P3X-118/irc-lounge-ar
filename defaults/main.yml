@@ -260,5 +260,8 @@ thelounge_config_ldap__search_dn__scope: sub
 thelounge_config_debug__irc_framework: false
 thelounge_config_debug__raw: false
 
+# Specify the timezone
+thelounge_environment_variables_tz: UTC
+
 # Additional environment variables.
 thelounge_environment_variables_additional_variables: ""
