@@ -129,7 +129,7 @@ thelounge_container_labels_additional_labels: "{{ thelounge_container_labels_add
 thelounge_container_labels_additional_labels_auto: {}
 thelounge_container_labels_additional_labels_custom: {}
 
-# A list of extra arguments to pass to the container (`docker run` command)
+# A list of extra arguments to pass to the container (`docker create` command)
 thelounge_container_extra_arguments: "{{ thelounge_container_extra_arguments_auto + thelounge_container_extra_arguments_custom }}"
 thelounge_container_extra_arguments_auto: []
 thelounge_container_extra_arguments_custom: []
