@@ -27,7 +27,7 @@ thelounge_hostname: ""
 # Specify URI scheme for thelounge_environment_variable_app_url.
 thelounge_scheme: https
 
-# The path at which The Lounge is exposed.
+# The path at which The Lounge is served.
 # This value must either be `/` or not end with a slash (e.g. `/thelounge`).
 #
 # Hosting The Lounge under a subpath does not seem to be possible due to The Lounge's
