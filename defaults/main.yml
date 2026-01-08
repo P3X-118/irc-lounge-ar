@@ -122,7 +122,7 @@ thelounge_container_labels_traefik_additional_response_headers_custom: {}
 # To add your own custom labels, use `thelounge_container_labels_additional_labels_custom`
 #
 # Example:
-# thelounge_container_labels_additional_labels_custom: |
+# thelounge_container_labels_additional_labels_custom:
 #   - my.label=1
 #   - another.label="here"
 thelounge_container_labels_additional_labels: "{{ thelounge_container_labels_additional_labels_auto + thelounge_container_labels_additional_labels_custom }}"
