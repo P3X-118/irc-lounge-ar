@@ -21,11 +21,11 @@ thelounge_version: 4.4.3
 thelounge_uid: ""
 thelounge_gid: ""
 
+# The scheme used for serving The Lounge.
+thelounge_scheme: https
+
 # The hostname at which The Lounge is served.
 thelounge_hostname: ""
-
-# Specify URI scheme for thelounge_environment_variable_app_url.
-thelounge_scheme: https
 
 # The path at which The Lounge is served.
 # This value must either be `/` or not end with a slash (e.g. `/thelounge`).
