@@ -47,6 +47,9 @@ thelounge_container_image_self_build_repo: "https://github.com/thelounge/theloun
 thelounge_container_image_self_build_repo_version: "{{ thelounge_version if thelounge_version != 'latest' else 'main' }}"
 thelounge_container_image_self_build_src_files_path: "{{ thelounge_base_path }}/docker-src"
 
+# The base container network. It will be auto-created by this role if it doesn't exist already.
+thelounge_container_network: "{{ thelounge_identifier }}"
+
 # Controls whether the container exposes its HTTP port (tcp/9000 in the container).
 #
 # Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
@@ -56,9 +59,6 @@ thelounge_container_http_host_bind_port: ""
 #
 # Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
 thelounge_container_identd_host_bind_port: ""
-
-# The base container network. It will be auto-created by this role if it doesn't exist already.
-thelounge_container_network: "{{ thelounge_identifier }}"
 
 # The port number in the container
 thelounge_container_http_port: 9000
