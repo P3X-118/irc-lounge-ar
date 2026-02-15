@@ -51,21 +51,24 @@
       changed_when: thelounge_base_path_deletion_result.rc == 0
       failed_when: false
 
-    - name: Ensure The Lounge container network does not exist via community.docker.docker_network
-      when: devture_systemd_docker_base_container_network_creation_method == 'ansible-module'
-      community.docker.docker_network:
-        name: "{{ thelounge_container_network }}"
-        state: absent
-      register: thelounge_network_deletion_result
+    - name: Ensure The Lounge container network does not exist
+      when: thelounge_container_network_deletion_enabled
+      block:
+        - name: Ensure The Lounge container network does not exist via community.docker.docker_network
+          when: devture_systemd_docker_base_container_network_creation_method == 'ansible-module'
+          community.docker.docker_network:
+            name: "{{ thelounge_container_network }}"
+            state: absent
+          register: thelounge_network_deletion_result
 
-    - name: Ensure The Lounge container network does not exist via ansible.builtin.command
-      when: devture_systemd_docker_base_container_network_creation_method == 'command'
-      ansible.builtin.command:
-        cmd: >-
-          {{ devture_systemd_docker_base_host_command_docker }} network rm
-          {{ thelounge_container_network }}
-      register: thelounge_network_deletion_result
-      changed_when: thelounge_container_network in thelounge_network_deletion_result.stdout
+        - name: Ensure The Lounge container network does not exist via ansible.builtin.command
+          when: devture_systemd_docker_base_container_network_creation_method == 'command'
+          ansible.builtin.command:
+            cmd: >-
+              {{ devture_systemd_docker_base_host_command_docker }} network rm
+              {{ thelounge_container_network }}
+          register: thelounge_network_deletion_result
+          changed_when: thelounge_container_network in thelounge_network_deletion_result.stdout
 
 - name: Check existence of The Lounge local data path
   ansible.builtin.stat:
