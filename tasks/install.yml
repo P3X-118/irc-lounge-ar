@@ -27,14 +27,14 @@
     - labels
   register: thelounge_support_files_result
 
-- name: Ensure The Lounge config file installed
+- name: Ensure The Lounge configuration file installed
   ansible.builtin.template:
     src: "{{ role_path }}/templates/config.js.j2"
     dest: "{{ thelounge_data_path }}/config.js"
     mode: "0640"
     owner: "{{ thelounge_uid }}"
     group: "{{ thelounge_gid }}"
-  register: thelounge_config_result
+  register: thelounge_config_file_result
 
 - name: Run if self-building of The Lounge container image is not enabled
   when: "not thelounge_container_image_self_build | bool"
@@ -118,8 +118,8 @@
     thelounge_restart_necessary: >-
       {{
         thelounge_support_files_result.changed | default(false)
+        or thelounge_config_file_result.changed | default(false)
         or thelounge_systemd_service_result.changed | default(false)
-        or thelounge_config_result.changed | default(false)
         or thelounge_container_image_pull_result.changed | default(false)
         or thelounge_container_image_build_result.changed | default(false)
       }}
