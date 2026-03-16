@@ -1,12 +1,7 @@
-# SPDX-FileCopyrightText: 2023 Slavi Pantaleev
-# SPDX-FileCopyrightText: 2025 Suguru Hirahara
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 ---
 - name: Check existence of The Lounge systemd service
   ansible.builtin.stat:
-    path: "{{ devture_systemd_docker_base_systemd_path }}/{{ thelounge_identifier }}.service"
+    path: "{{ sysd_docker_service_path }}/{{ thelounge_identifier }}.service"
   register: thelounge_service_stat
 
 - name: Uninstall The Lounge systemd services and files
@@ -21,7 +16,7 @@
 
     - name: Ensure The Lounge systemd service does not exist
       ansible.builtin.file:
-        path: "{{ devture_systemd_docker_base_systemd_path }}/{{ thelounge_identifier }}.service"
+        path: "{{ sysd_docker_service_path }}/{{ thelounge_identifier }}.service"
         state: absent
 
     - name: Ensure The Lounge support files do not exist
@@ -55,17 +50,17 @@
       when: thelounge_container_network_deletion_enabled
       block:
         - name: Ensure The Lounge container network does not exist via community.docker.docker_network
-          when: devture_systemd_docker_base_container_network_creation_method == 'ansible-module'
+          when: sysd_docker_net_creation_method == 'ansible-module'
           community.docker.docker_network:
             name: "{{ thelounge_container_network }}"
             state: absent
           register: thelounge_network_deletion_result
 
         - name: Ensure The Lounge container network does not exist via ansible.builtin.command
-          when: devture_systemd_docker_base_container_network_creation_method == 'command'
+          when: sysd_docker_net_creation_method == 'command'
           ansible.builtin.command:
             cmd: >-
-              {{ devture_systemd_docker_base_host_command_docker }} network rm
+              {{ sysd_docker_host_command }} network rm
               {{ thelounge_container_network }}
           register: thelounge_network_deletion_result
           changed_when: thelounge_container_network in thelounge_network_deletion_result.stdout
@@ -79,9 +74,9 @@
 - name: Notify if The Lounge local data remains
   when: thelounge_data_path_stat.stat.exists | bool
   ansible.builtin.set_fact:
-    devture_playbook_runtime_messages_list: |
+    playbook_runtime_messages: |
       {{
-        devture_playbook_runtime_messages_list | default([])
+        playbook_runtime_messages | default([])
         +
         [
           "Note: As the local The Lounge instance has been removed, some old data remains in `" + thelounge_data_path + "`. Feel free to delete it."

@@ -1,11 +1,3 @@
-{#
-SPDX-FileCopyrightText: 2023 Slavi Pantaleev
-SPDX-FileCopyrightText: 2024 Nikita Chernyi
-SPDX-FileCopyrightText: 2025 Suguru Hirahara
-
-SPDX-License-Identifier: AGPL-3.0-or-later
-#}
-
 [Unit]
 Description=The Lounge ({{ thelounge_identifier }})
 {% for service in thelounge_systemd_required_services_list %}
@@ -19,11 +11,11 @@ DefaultDependencies=no
 
 [Service]
 Type=simple
-Environment="HOME={{ devture_systemd_docker_base_systemd_unit_home_path }}"
-ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} stop -t {{ devture_systemd_docker_base_container_stop_grace_time_seconds }} {{ thelounge_identifier }} 2>/dev/null || true'
-ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm {{ thelounge_identifier }} 2>/dev/null || true'
+Environment="HOME={{ sysd_docker_unit_home_path }}"
+ExecStartPre=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} stop -t {{ sysd_docker_stop_grace }} {{ thelounge_identifier }} 2>/dev/null || true'
+ExecStartPre=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} rm {{ thelounge_identifier }} 2>/dev/null || true'
 
-ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
+ExecStartPre={{ sysd_docker_host_command }} create \
       --rm \
       --name={{ thelounge_identifier }} \
       --log-driver=none \
@@ -49,13 +41,13 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} create \
       {{ thelounge_container_image_self_build_name if thelounge_container_image_self_build else thelounge_container_image }}
 
 {% for network in thelounge_container_additional_networks %}
-ExecStartPre={{ devture_systemd_docker_base_host_command_docker }} network connect {{ network }} {{ thelounge_identifier }}
+ExecStartPre={{ sysd_docker_host_command }} network connect {{ network }} {{ thelounge_identifier }}
 {% endfor %}
 
-ExecStart={{ devture_systemd_docker_base_host_command_docker }} start --attach {{ thelounge_identifier }}
+ExecStart={{ sysd_docker_host_command }} start --attach {{ thelounge_identifier }}
 
-ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} stop -t {{ devture_systemd_docker_base_container_stop_grace_time_seconds }} {{ thelounge_identifier }} 2>/dev/null || true'
-ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm {{ thelounge_identifier }} 2>/dev/null || true'
+ExecStop=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} stop -t {{ sysd_docker_stop_grace }} {{ thelounge_identifier }} 2>/dev/null || true'
+ExecStop=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} rm {{ thelounge_identifier }} 2>/dev/null || true'
 
 Restart=always
 RestartSec=30

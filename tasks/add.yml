@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2023 Slavi Pantaleev
-# SPDX-FileCopyrightText: 2025 Suguru Hirahara
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 ---
 # The command to create a user: `ansible-playbook -i inventory/hosts setup.yml --tags=add-thelounge -e username=USERNAME_HERE -e password=PASSWORD_HERE`
 
@@ -15,7 +10,7 @@
 - name: Run The Lounge 'add' command
   ansible.builtin.command:
     cmd: |-
-      {{ devture_systemd_docker_base_host_command_docker }} exec
+      {{ sysd_docker_host_command }} exec
       {{ thelounge_identifier }}
       thelounge
       add {{ username }} --password {{ password }}
