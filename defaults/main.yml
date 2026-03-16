@@ -1,7 +1,7 @@
 ---
 # Project source code URL: https://github.com/thelounge/thelounge-docker
 
-thelounge_enabled: true
+thelounge_enabled: false
 
 thelounge_identifier: thelounge
 thelounge_base_path: "/{{ thelounge_identifier }}"
