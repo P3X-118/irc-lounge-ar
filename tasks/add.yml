@@ -12,7 +12,7 @@
     cmd: |-
       {{ sysd_docker_host_command }} exec
       {{ thelounge_identifier }}
-      thelounge
+      node /app/index.js
       add {{ username }} --password {{ password }}
   register: result
   changed_when: "'created' in result.stdout"
